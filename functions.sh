@@ -134,22 +134,24 @@ function cda() {
   ls -A
 }
 
-# the same as above but as aliases instead:
+function t-open {
+  if [[ "$#" -lt 1 ]]; then
+  # no arguments, use view as default.
+  termux-share -a view "$@"
+  if [[ "$1" = "-e" ]]; then
+  # first arg is "-e" so edit.
+  termux-share -a edit "$@"
+  elif [[ "$1" = "-s" ]]; then
+  # first arg is "-s" so send.
+  termux-share -a send "$@"
+  else
+  echo "t-open [FileName]      # (view file)"
+  echo "t-open -e [FileName]   # (edit file)"
+  echo "t-open -s [FileName]   # (send file)"
+  fi
+  fi
+}
 
-#alias cdl='cd "$@" && ls'
-#alias cda='cd "$@" && ls -A'
-
-# NOTE (I have cd set to echo the new directory)
-# when these are used as a functions
-# its still the same BUT...
-# when used as an alias: it mutes cd's output,
-# could be useful to have cd able to so both,
-# silent OR output. You could uncomment the
-# aliases & slightly change the names
-# so they dont conflict with above, this adds
-# a "silent" cd. EXAMPLE:
-# the 'cdl' alias could be uncommented
-# & then renamed 'cds' (cd silent) etc.
 
 ################################################
 
